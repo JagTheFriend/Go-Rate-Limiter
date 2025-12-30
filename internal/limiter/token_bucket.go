@@ -42,15 +42,15 @@ func (tb *TokenBucket) Allow(ctx context.Context, key string) (bool, int, error)
 
 	tokens--
 
-	tb.Redis.Set(ctx, tokenKey, tokens, int64(tb.Interval.Seconds()))
-	tb.Redis.Set(ctx, timeKey, now, int64(tb.Interval.Seconds()))
+	err := tb.Redis.Set(ctx, tokenKey, tokens, int64(tb.Interval.Seconds()))
+	if err != nil {
+		return false, 0, err
+	}
+
+	err = tb.Redis.Set(ctx, timeKey, now, int64(tb.Interval.Seconds()))
+	if err != nil {
+		return false, 0, err
+	}
 
 	return true, tokens, nil
-}
-
-func min(a, b int) int {
-	if a < b {
-		return a
-	}
-	return b
 }
