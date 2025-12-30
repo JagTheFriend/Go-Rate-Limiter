@@ -1,5 +1,5 @@
 
-# 🚦 Go Distributed Rate Limiter
+# Go Distributed Rate Limiter
 
 A **high-performance, distributed rate limiting service** built in **Go**, designed to protect APIs from excessive traffic using the **Token Bucket algorithm** with **Redis-backed shared state**.
 
